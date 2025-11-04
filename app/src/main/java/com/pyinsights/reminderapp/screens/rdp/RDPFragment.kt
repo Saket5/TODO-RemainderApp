@@ -74,7 +74,6 @@ class RDPFragment : Fragment() {
         if (reminderId != null && reminderId != 0L) {
             viewModel.getReminderById(reminderId!!)
         } else {
-            initialReminderState = createReminderFromUI()
             binding.markAsCompletedButton.visibility = View.GONE
         }
     }
