@@ -28,7 +28,7 @@ object NotificationUtils {
                 vibrationPattern = longArrayOf(0, 300, 100, 300)
                 setShowBadge(true)
                 enableLights(true)
-                lightColor = 0xFFFF8A00.toInt() // Orange color
+                lightColor = 0xFFFF8A00.toInt()
             }
             val notificationManager: NotificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

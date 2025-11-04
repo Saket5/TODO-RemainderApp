@@ -30,7 +30,6 @@ class HomeViewModel(private val repository: MainRepository) : ViewModel() {
                     try {
                         repository.getTodos() ?: emptyList()
                     } catch (e: Exception) {
-                        // Gracefully handle network errors by returning an empty list
                         emptyList<TodoModel>()
                     }
                 }

@@ -153,7 +153,6 @@ class ReminderAdapter(
                 reminderRepeat.visibility = View.GONE
             }
 
-            // Accessibility: Consolidate all information into a single description for TalkBack
             val contentDescription = buildString {
                 append(reminder.title)
                 if (!reminder.description.isNullOrEmpty()) {

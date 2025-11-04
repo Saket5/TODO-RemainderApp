@@ -169,7 +169,7 @@ class RDPFragment : Fragment() {
         binding.markAsCompletedButton.setOnClickListener {
             viewModel.reminder.value?.let { reminder ->
                 viewModel.markAsCompleted(reminder)
-                NotificationUtils.cancelNotification(requireContext(), reminder.id) // Also cancel notification when marked as completed
+                NotificationUtils.cancelNotification(requireContext(), reminder.id)
                 Toast.makeText(context, getString(R.string.reminder_marked_as_completed_toast), Toast.LENGTH_SHORT).show()
                 parentFragmentManager.setFragmentResult("reminder_saved", bundleOf("refresh" to true))
                 parentFragmentManager.popBackStack()
@@ -290,7 +290,7 @@ class RDPFragment : Fragment() {
                     bundleOf("refresh" to true)
                 )
                 initialReminderState =
-                    reminder // Crucially, update the state after a successful save
+                    reminder
 
                 if (andExit && isBackPressed) {
                     onBackPressedCallback.isEnabled = false
@@ -315,7 +315,7 @@ class RDPFragment : Fragment() {
                 binding.radioCustom.isChecked -> {
                     binding.minutesEditText.text.toString().toLongOrNull()
                 }
-                else -> null // No interval selected
+                else -> null
             }
         }
 

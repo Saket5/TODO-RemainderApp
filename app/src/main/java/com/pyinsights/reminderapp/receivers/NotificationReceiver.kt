@@ -28,10 +28,8 @@ class NotificationReceiver : BroadcastReceiver() {
             "Received notification for reminder: $reminderTitle, isRepeating: $isRepeating"
         )
 
-        // Show the notification
         showNotification(context, reminderTitle, reminderDescription, reminderId)
 
-        // If it's a repeating reminder, schedule the next occurrence
         if (isRepeating && recurrenceInterval > 0) {
             scheduleNextOccurrence(context, intent, recurrenceInterval)
         }
@@ -54,7 +52,7 @@ class NotificationReceiver : BroadcastReceiver() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        // Create a large icon from the launcher icon
+
         val largeIcon = BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher)
 
         val notification = NotificationCompat.Builder(context, "reminder_channel")
@@ -69,12 +67,12 @@ class NotificationReceiver : BroadcastReceiver() {
             )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setVibrate(longArrayOf(0, 300, 100, 300))
-            .setDefaults(NotificationCompat.DEFAULT_ALL) // Use all defaults
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setColor(ContextCompat.getColor(context, R.color.orange_dark))
             .setContentIntent(contentPendingIntent)
             .setAutoCancel(true)
-            .setFullScreenIntent(contentPendingIntent, true) // This will show the notification as a heads-up notification
+            .setFullScreenIntent(contentPendingIntent, true)
             .build()
 
         notificationManager.notify(reminderId.toInt(), notification)
@@ -88,7 +86,6 @@ class NotificationReceiver : BroadcastReceiver() {
     ) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        // Check if we can schedule exact alarms
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!alarmManager.canScheduleExactAlarms()) {
                 Log.w(
@@ -103,7 +100,6 @@ class NotificationReceiver : BroadcastReceiver() {
         val intervalMillis = recurrenceInterval * 60 * 1000 // Convert minutes to milliseconds
         val nextTriggerTime = System.currentTimeMillis() + intervalMillis
 
-        // Create a new intent for the next occurrence
         val nextIntent = Intent(context, NotificationReceiver::class.java).apply {
             putExtra("reminder_title", originalIntent.getStringExtra("reminder_title"))
             putExtra("reminder_description", originalIntent.getStringExtra("reminder_description"))

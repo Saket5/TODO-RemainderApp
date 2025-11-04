@@ -14,8 +14,6 @@ class RDPViewModel(private val repository: MainRepository) : ViewModel() {
     private val _reminder = MutableLiveData<ReminderModel?>()
     val reminder: LiveData<ReminderModel?> = _reminder
 
-    private val _saveResult = MutableLiveData<ReminderModel?>()
-    val saveResult: LiveData<ReminderModel?> = _saveResult
 
     fun getReminderById(id: Long) {
         viewModelScope.launch {
@@ -29,11 +27,9 @@ class RDPViewModel(private val repository: MainRepository) : ViewModel() {
                 val newId = repository.insertReminder(reminder)
                 val savedReminder = reminder.copy(id = newId)
                 Log.d("RDPViewModel", "Saved reminder: $savedReminder")
-                _saveResult.value = savedReminder
             } else {
                 repository.updateReminder(reminder)
                 Log.d("RDPViewModel", "Updated reminder: $reminder")
-                _saveResult.value = reminder
             }
         }
     }
@@ -49,9 +45,5 @@ class RDPViewModel(private val repository: MainRepository) : ViewModel() {
         viewModelScope.launch {
             repository.deleteReminder(reminder)
         }
-    }
-
-    fun resetSaveResult() {
-        _saveResult.value = null
     }
 }

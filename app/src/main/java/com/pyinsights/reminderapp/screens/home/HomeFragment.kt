@@ -58,7 +58,6 @@ class HomeFragment : Fragment() {
         setupFab()
         setupFragmentResultListener()
 
-        // Initial data fetch
         viewModel.fetchData()
     }
 
@@ -74,7 +73,6 @@ class HomeFragment : Fragment() {
                     requireContext(),
                     Manifest.permission.POST_NOTIFICATIONS
                 ) == PackageManager.PERMISSION_GRANTED -> {
-                    // Permission is already granted
                 }
                 shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
                     AlertDialog.Builder(requireContext())
