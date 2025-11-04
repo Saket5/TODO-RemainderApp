@@ -85,16 +85,16 @@ class RDPFragment : Fragment() {
 
     private fun showUnsavedChangesDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Unsaved Changes")
-            .setMessage("You have unsaved changes. Do you want to save them?")
-            .setPositiveButton("Save") { _, _ ->
+            .setTitle(getString(R.string.unsaved_changes_dialog_title))
+            .setMessage(getString(R.string.unsaved_changes_dialog_message))
+            .setPositiveButton(getString(R.string.save_button_text)) { _, _ ->
                 saveReminder(andExit = true, isBackPressed = true)
             }
-            .setNegativeButton("Discard") { _, _ ->
+            .setNegativeButton(getString(R.string.discard_button_text)) { _, _ ->
                 onBackPressedCallback.isEnabled = false
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
-            .setNeutralButton("Cancel", null)
+            .setNeutralButton(getString(R.string.cancel_button_text), null)
             .show()
     }
 
@@ -169,7 +169,7 @@ class RDPFragment : Fragment() {
         binding.markAsCompletedButton.setOnClickListener {
             viewModel.reminder.value?.let { reminder ->
                 viewModel.markAsCompleted(reminder)
-                NotificationUtils.cancelNotification(requireContext(), reminder.id)
+                NotificationUtils.cancelNotification(requireContext(), reminder.id) // Also cancel notification when marked as completed
                 Toast.makeText(context, getString(R.string.reminder_marked_as_completed_toast), Toast.LENGTH_SHORT).show()
                 parentFragmentManager.setFragmentResult("reminder_saved", bundleOf("refresh" to true))
                 parentFragmentManager.popBackStack()
@@ -262,12 +262,12 @@ class RDPFragment : Fragment() {
         }
 
         if (reminder.isRepeating && reminder.recurrenceInterval == null) {
-            Toast.makeText(context, "Please select a repeat interval.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.repeat_interval_error_toast), Toast.LENGTH_SHORT).show()
             return
         }
 
-        if (reminder.isRepeating && reminder.recurrenceInterval != null && reminder.recurrenceInterval!! <= 0) {
-            Toast.makeText(context, "Please enter a valid number of minutes for custom repeat.", Toast.LENGTH_SHORT).show()
+        if (reminder.isRepeating && reminder.recurrenceInterval != null && reminder.recurrenceInterval <= 0) {
+            Toast.makeText(context, getString(R.string.custom_repeat_error_toast), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -278,7 +278,7 @@ class RDPFragment : Fragment() {
             viewModel.saveReminder(reminder)
             val scheduled = NotificationUtils.scheduleNotification(requireContext(), reminder)
             if (!scheduled) {
-                Toast.makeText(context, "Failed to schedule reminder. Please check the date and time.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.schedule_reminder_failed_toast), Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(
                     context,
@@ -331,14 +331,14 @@ class RDPFragment : Fragment() {
 
     private fun showExactAlarmPermissionDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Permission Required")
-            .setMessage("To ensure your reminders are delivered on time, this app needs permission to schedule exact alarms. Please grant this permission in the app settings.")
-            .setPositiveButton("Go to Settings") { _, _ ->
+            .setTitle(getString(R.string.permission_required_dialog_title))
+            .setMessage(getString(R.string.permission_required_dialog_message))
+            .setPositiveButton(getString(R.string.go_to_settings_button_text)) { _, _ ->
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM))
                 }
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel_button_text), null)
             .show()
     }
 }

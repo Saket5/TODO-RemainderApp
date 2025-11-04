@@ -36,6 +36,15 @@
     <string name="title_cannot_be_empty_toast">Title cannot be empty</string>
     <string name="reminder_marked_as_completed_toast">Reminder marked as completed</string>
     <string name="no_reminders">No reminders found</string>
+    <string name="unsaved_changes_dialog_title">Unsaved Changes</string>
+    <string name="unsaved_changes_dialog_message">You have unsaved changes. Do you want to save them?</string>
+    <string name="discard_button_text">Discard</string>
+    <string name="repeat_interval_error_toast">Please select a repeat interval.</string>
+    <string name="custom_repeat_error_toast">Please enter a valid number of minutes for custom repeat.</string>
+    <string name="schedule_reminder_failed_toast">Failed to schedule reminder. Please check the date and time.</string>
+    <string name="permission_required_dialog_title">Permission Required</string>
+    <string name="permission_required_dialog_message">To ensure your reminders are delivered on time, this app needs permission to schedule exact alarms. Please grant this permission in the app settings.</string>
+    <string name="go_to_settings_button_text">Go to Settings</string>
 
     <!-- Accessibility Strings -->
     <string name="accessibility_toolbar">Toolbar for the screen</string>
