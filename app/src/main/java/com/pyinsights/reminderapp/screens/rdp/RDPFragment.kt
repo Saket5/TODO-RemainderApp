@@ -271,26 +271,33 @@ class RDPFragment : Fragment() {
             return
         }
 
-        viewModel.saveReminder(reminder)
-        val scheduled = NotificationUtils.scheduleNotification(requireContext(), reminder)
-
-        if (!scheduled) {
-            val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-                showExactAlarmPermissionDialog()
-            } else {
-                Toast.makeText(context, "Failed to schedule reminder. Please check the date and time.", Toast.LENGTH_SHORT).show()
-            }
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
+            showExactAlarmPermissionDialog()
         } else {
-            Toast.makeText(context, getString(R.string.reminder_saved_toast), Toast.LENGTH_SHORT).show()
-            parentFragmentManager.setFragmentResult("reminder_saved", bundleOf("refresh" to true))
-            initialReminderState = reminder // Crucially, update the state after a successful save
+            viewModel.saveReminder(reminder)
+            val scheduled = NotificationUtils.scheduleNotification(requireContext(), reminder)
+            if (!scheduled) {
+                Toast.makeText(context, "Failed to schedule reminder. Please check the date and time.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    context,
+                    getString(R.string.reminder_saved_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+                parentFragmentManager.setFragmentResult(
+                    "reminder_saved",
+                    bundleOf("refresh" to true)
+                )
+                initialReminderState =
+                    reminder // Crucially, update the state after a successful save
 
-            if (andExit && isBackPressed) {
-                onBackPressedCallback.isEnabled = false
-                requireActivity().onBackPressedDispatcher.onBackPressed()
-            } else if (andExit) {
-                parentFragmentManager.popBackStack()
+                if (andExit && isBackPressed) {
+                    onBackPressedCallback.isEnabled = false
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                } else if (andExit) {
+                    parentFragmentManager.popBackStack()
+                }
             }
         }
     }
