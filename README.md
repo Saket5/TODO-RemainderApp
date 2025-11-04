@@ -20,8 +20,7 @@ A simple yet powerful reminder and to-do list application for Android. It allows
 | Home Screen | Add/Edit Screen |
 | :---: | :---: |
 | ![WhatsApp Image 2025-11-04 at 16 14 50_939f0601](https://github.com/user-attachments/assets/ca7b84bb-17fe-413a-a1bb-d8792b32a304)
-** | *![WhatsApp Image 2025-11-04 at 16 14 50_4d8ccdad](https://github.com/user-attachments/assets/bf99cea1-b99c-431e-8938-b82c3cc92f6d) 
-* |![WhatsApp Image 2025-11-04 at 16 14 50_b7111214](https://github.com/user-attachments/assets/45d302f8-2796-4d84-b204-acd66cb20ba6)
+ | ![WhatsApp Image 2025-11-04 at 16 14 50_4d8ccdad](https://github.com/user-attachments/assets/bf99cea1-b99c-431e-8938-b82c3cc92f6d) |![WhatsApp Image 2025-11-04 at 16 14 50_b7111214](https://github.com/user-attachments/assets/45d302f8-2796-4d84-b204-acd66cb20ba6)
 
 
 ## Tech Stack & Architecture
